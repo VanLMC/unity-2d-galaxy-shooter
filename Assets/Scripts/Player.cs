@@ -71,6 +71,10 @@ public class Player : MonoBehaviour
                 transform.position = new Vector3(transform.position.x, _BOTTOM_VERTICAL_BOUNDARY, 0);
             }
     }
+    public void SppedBoostPowerupOn() {
+        _speed += 5.0f;
+        StartCoroutine(SpeedBoostPowerDownRoutine());
+    }
 
     public void TripleShotPowerupOn() {
         canTripleShot = true;
@@ -80,6 +84,11 @@ public class Player : MonoBehaviour
     public IEnumerator TripleShotPowerDownRoutine(){
         yield return new WaitForSeconds(5.0f);
         canTripleShot = false;
+    }
+
+    public IEnumerator SpeedBoostPowerDownRoutine(){
+        yield return new WaitForSeconds(5.0f);
+        _speed = 5.0f;
     }
 
 }

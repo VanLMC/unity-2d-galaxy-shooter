@@ -6,6 +6,8 @@ public class Powerup : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 3.0f;
+    [SerializeField]
+    private int powerupId = 0;
 
     void Update()
     {
@@ -16,7 +18,18 @@ public class Powerup : MonoBehaviour
             if(other.tag != "Player") return;
             Player player = other.GetComponent<Player>();
             if(player == null) return;
-            player.TripleShotPowerupOn();
+
+            if(powerupId == 0){
+                player.TripleShotPowerupOn();
+            }
+            else if (powerupId == 1) {
+              player.SppedBoostPowerupOn();
+            }
+            else if (powerupId == 2) {
+                //enable shields
+            }
+     
+     
             Destroy(this.gameObject);
     }
 }
