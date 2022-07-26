@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     private float fireRate = 0.25f;
     private float nextFireTime = 0.0f;
 
-    public bool canTripleShot = true;
+    public bool canTripleShot = false;
 
     [SerializeField]
     private GameObject shotPrefab;
@@ -70,6 +70,16 @@ public class Player : MonoBehaviour
             else if(transform.position.y <= _BOTTOM_VERTICAL_BOUNDARY){
                 transform.position = new Vector3(transform.position.x, _BOTTOM_VERTICAL_BOUNDARY, 0);
             }
+    }
+
+    public void TripleShotPowerupOn() {
+        canTripleShot = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
+    }
+
+    public IEnumerator TripleShotPowerDownRoutine(){
+        yield return new WaitForSeconds(5.0f);
+        canTripleShot = false;
     }
 
 }
