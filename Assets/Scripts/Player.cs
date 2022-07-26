@@ -14,8 +14,12 @@ public class Player : MonoBehaviour
     private float fireRate = 0.25f;
     private float nextFireTime = 0.0f;
 
+    public bool canTripleShot = true;
+
     [SerializeField]
-    private GameObject laserPrefab;
+    private GameObject shotPrefab;
+    [SerializeField]
+    private GameObject tripleShotPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,15 +28,26 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
+        float currentTime = Time.time;
+        bool canFire = currentTime >= nextFireTime;
         Movement();
-        if((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(1)) && Time.time >= nextFireTime){
-            Shoot();
+        if((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(1)) && canFire){
+            if(canTripleShot){
+                TripleShot();
+            }
+            else {
+                 Shoot();
+            }
+            nextFireTime = Time.time + fireRate;
         }
     }
 
+    private void TripleShot(){
+        Instantiate(tripleShotPrefab, transform.position, Quaternion.identity);
+    }
+
     private void Shoot(){
-        Instantiate(laserPrefab, transform.position + new Vector3(0, 1.32f,0), Quaternion.identity); //Quaternion is used to represent rotation
-          nextFireTime = Time.time + fireRate;
+        Instantiate(shotPrefab, transform.position + new Vector3(0, 1.32f,0), Quaternion.identity); //Quaternion is used to represent rotation
     }
 
     private void Movement(){
