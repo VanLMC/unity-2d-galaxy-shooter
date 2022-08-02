@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
     private GameObject shotPrefab;
     [SerializeField]
     private GameObject tripleShotPrefab;
+
+    [SerializeField]
+    private GameObject explosionAnimation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,8 +78,13 @@ public class Player : MonoBehaviour
     public void Damage() {
         lifes -= 1;
         if(lifes < 1){
-            Destroy(this.gameObject);
+            Die();
         }
+    }
+
+    public void Die(){
+        Instantiate(explosionAnimation, this.transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
     }
 
     public void SppedBoostPowerupOn() {
