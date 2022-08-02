@@ -18,7 +18,7 @@ public class Powerup : MonoBehaviour
             if(other.tag != "Player") return;
             Player player = other.GetComponent<Player>();
             if(player == null) return;
-
+            
             if(powerupId == 0){
                 player.TripleShotPowerupOn();
             }
