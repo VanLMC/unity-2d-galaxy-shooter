@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     public bool canTripleShot = false;
 
-    public int lifes = 3;
+    public int lives = 3;
 
     [SerializeField]
     private GameObject shotPrefab;
@@ -76,8 +76,8 @@ public class Player : MonoBehaviour
     }
 
     public void Damage() {
-        lifes -= 1;
-        if(lifes < 1){
+        lives -= 1;
+        if(lives < 1){
             Die();
         }
     }
