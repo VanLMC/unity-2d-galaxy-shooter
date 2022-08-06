@@ -7,7 +7,7 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private float _speed = 3.0f;
     [SerializeField]
-    private int powerupId = 0;
+    private int _powerupId = 0;
 
     void Update()
     {
@@ -17,18 +17,21 @@ public class Powerup : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other){
             if(other.tag != "Player") return;
             Player player = other.GetComponent<Player>();
+
             if(player == null) return;
-            
-            if(powerupId == 0){
+
+            switch(_powerupId) 
+            {
+            case 0:
                 player.TripleShotPowerupOn();
+                break;
+            case 1:
+                 player.SppedBoostPowerupOn();
+                break;
+            case 2:
+                player.ShieldPowerupOn();
+                break;
             }
-            else if (powerupId == 1) {
-              player.SppedBoostPowerupOn();
-            }
-            else if (powerupId == 2) {
-                //enable shields
-            }
-     
      
             Destroy(this.gameObject);
     }

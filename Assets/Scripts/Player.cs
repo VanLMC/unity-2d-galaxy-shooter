@@ -11,12 +11,13 @@ public class Player : MonoBehaviour
     private float _TOP_VERTICAL_BOUNDARY = 4.31f;
     private float _BOTTOM_VERTICAL_BOUNDARY = -4.31f;
 
-    private float fireRate = 0.25f;
-    private float nextFireTime = 0.0f;
+    private float _fireRate = 0.25f;
+    private float _nextFireTime = 0.0f;
 
-    public bool canTripleShot = false;
+    private bool _canTripleShot = false;
+    private bool _hasShield = false;
 
-    public int lives = 3;
+    private int _lives = 3;
 
     [SerializeField]
     private GameObject shotPrefab;
@@ -41,15 +42,15 @@ public class Player : MonoBehaviour
 
     private void Shoot(){
         float currentTime = Time.time;
-        bool canFire = currentTime >= nextFireTime;
+        bool canFire = currentTime >= _nextFireTime;
         if((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(1)) && canFire){
-            if(canTripleShot){
+            if(_canTripleShot){
                 Instantiate(tripleShotPrefab, transform.position, Quaternion.identity);
             }
             else {
                 Instantiate(shotPrefab, transform.position + new Vector3(0, 1.32f,0), Quaternion.identity); //Quaternion is used to represent rotation
             }
-            nextFireTime = Time.time + fireRate;
+            _nextFireTime = Time.time + _fireRate;
         }
     }
 
@@ -76,8 +77,13 @@ public class Player : MonoBehaviour
     }
 
     public void Damage() {
-        lives -= 1;
-        if(lives < 1){
+        if(_hasShield) {
+            ShieldPowerupOff();
+            return;
+        }
+
+        _lives--;
+        if(_lives < 1){
             Die();
         }
     }
@@ -93,18 +99,26 @@ public class Player : MonoBehaviour
     }
 
     public void TripleShotPowerupOn() {
-        canTripleShot = true;
+        _canTripleShot = true;
         StartCoroutine(TripleShotPowerDownRoutine());
     }
 
     public IEnumerator TripleShotPowerDownRoutine(){
         yield return new WaitForSeconds(5.0f);
-        canTripleShot = false;
+        _canTripleShot = false;
     }
 
     public IEnumerator SpeedBoostPowerDownRoutine(){
         yield return new WaitForSeconds(5.0f);
         _speed = 5.0f;
+    }
+
+    public void ShieldPowerupOn(){
+        _hasShield = true;
+    }
+
+    private void ShieldPowerupOff(){
+        _hasShield = false;
     }
 
 }
