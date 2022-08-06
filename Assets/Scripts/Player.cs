@@ -15,17 +15,20 @@ public class Player : MonoBehaviour
     private float _nextFireTime = 0.0f;
 
     private bool _canTripleShot = false;
-    private bool _hasShield = false;
+    public bool _hasShield = false;
 
     private int _lives = 3;
 
     [SerializeField]
-    private GameObject shotPrefab;
+    private GameObject _shotPrefab;
     [SerializeField]
-    private GameObject tripleShotPrefab;
+    private GameObject _tripleShotPrefab;
 
     [SerializeField]
-    private GameObject explosionAnimation;
+    private GameObject _explosionAnimation;
+
+    [SerializeField]
+    private GameObject _shieldsGameObject;
 
     // Start is called before the first frame update
     void Start()
@@ -45,10 +48,10 @@ public class Player : MonoBehaviour
         bool canFire = currentTime >= _nextFireTime;
         if((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(1)) && canFire){
             if(_canTripleShot){
-                Instantiate(tripleShotPrefab, transform.position, Quaternion.identity);
+                Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
             }
             else {
-                Instantiate(shotPrefab, transform.position + new Vector3(0, 1.32f,0), Quaternion.identity); //Quaternion is used to represent rotation
+                Instantiate(_shotPrefab, transform.position + new Vector3(0, 1.32f,0), Quaternion.identity); //Quaternion is used to represent rotation
             }
             _nextFireTime = Time.time + _fireRate;
         }
@@ -89,7 +92,7 @@ public class Player : MonoBehaviour
     }
 
     public void Die(){
-        Instantiate(explosionAnimation, this.transform.position, Quaternion.identity);
+        Instantiate(_explosionAnimation, this.transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
 
@@ -115,10 +118,12 @@ public class Player : MonoBehaviour
 
     public void ShieldPowerupOn(){
         _hasShield = true;
+        _shieldsGameObject.SetActive(true);
     }
 
     private void ShieldPowerupOff(){
         _hasShield = false;
+        _shieldsGameObject.SetActive(false);
     }
 
 }

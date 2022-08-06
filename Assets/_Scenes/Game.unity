@@ -369,9 +369,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  shotPrefab: {fileID: 8158774684691554165, guid: bf3570d381424064ba8293b3c8359b32, type: 3}
-  tripleShotPrefab: {fileID: 6298169664684366292, guid: 6587748718c0a8f4e944e66dd68be0c1, type: 3}
-  explosionAnimation: {fileID: 5670325256349401883, guid: b6b9da4accec1594ba7fb8ed22b2d3b3, type: 3}
+  _hasShield: 0
+  _shotPrefab: {fileID: 8158774684691554165, guid: bf3570d381424064ba8293b3c8359b32, type: 3}
+  _tripleShotPrefab: {fileID: 6298169664684366292, guid: 6587748718c0a8f4e944e66dd68be0c1, type: 3}
+  _explosionAnimation: {fileID: 5670325256349401883, guid: b6b9da4accec1594ba7fb8ed22b2d3b3, type: 3}
+  _shieldsGameObject: {fileID: 1808183554}
 --- !u!61 &1165435100
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -586,12 +588,12 @@ GameObject:
   - component: {fileID: 1808183555}
   - component: {fileID: 1808183556}
   m_Layer: 0
-  m_Name: Shield
+  m_Name: Shields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1808183555
 Transform:
   m_ObjectHideFlags: 0
@@ -807,6 +809,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6553038775143660064, guid: 512b12400658ccf4d89b5dac0aa55b02, type: 3}
+      propertyPath: _powerupId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6553038775143660065, guid: 512b12400658ccf4d89b5dac0aa55b02, type: 3}
       propertyPath: m_RootOrder
       value: 6
