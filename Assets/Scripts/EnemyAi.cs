@@ -19,7 +19,7 @@ public class EnemyAi : MonoBehaviour
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
         float randomNumber = Random.Range(-8.51f, 8.5f);
         if(transform.position.y <= -6.9f){
-           this.transform.position = new Vector3(randomNumber, 6.69f, 0);
+           Destroy(this.gameObject);
         }
     }
      private void OnTriggerEnter2D(Collider2D other){
@@ -28,22 +28,16 @@ public class EnemyAi : MonoBehaviour
             Player player = other.GetComponent<Player>();
             if(player == null) return;
             player.Damage();
-         
+            Destroy(this.gameObject);
          }
          else if(other.tag == "Laser"){
             Laser laser = other.GetComponent<Laser>();
             if(laser == null) return;
             Destroy(laser.gameObject);
+            Destroy(this.gameObject);
          }
         
         PlayExplosionAnimation();
-        PlaceEnemyOnNewLocation();
-
-     }
-
-     private void PlaceEnemyOnNewLocation(){
-            float randomNumber = Random.Range(-8.51f, 8.5f);
-            this.transform.position = new Vector3(randomNumber, 6.69f, 0);
      }
 
      private void PlayExplosionAnimation() {
