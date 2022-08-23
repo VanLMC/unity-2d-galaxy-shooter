@@ -93,17 +93,16 @@ public class Player : MonoBehaviour
         }
 
         _lives--;
-        _uiManager.UpdateLives(_lives);
-        
         if(_lives < 1){
             Die();
         }
-
+        _uiManager.UpdateLives(_lives);
     }
 
     public void Die(){
         Instantiate(_explosionAnimation, this.transform.position, Quaternion.identity);
         Destroy(this.gameObject);
+        _uiManager.EndGame();
     }
 
     public void SppedBoostPowerupOn() {
