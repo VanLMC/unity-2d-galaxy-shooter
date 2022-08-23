@@ -9,7 +9,13 @@ public class EnemyAi : MonoBehaviour
 
     [SerializeField]
     private GameObject enemyExplosionAnimation;
-    // Update is called once per frame
+
+    private UIManager _uiManager;
+
+    void Start(){
+      _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+    }
+        
     void Update()
     {
         Movement();
@@ -35,6 +41,7 @@ public class EnemyAi : MonoBehaviour
             if(laser == null) return;
             Destroy(laser.gameObject);
             Destroy(this.gameObject);
+            IncreaseScore();
          }
         
         PlayExplosionAnimation();
@@ -42,6 +49,11 @@ public class EnemyAi : MonoBehaviour
 
      private void PlayExplosionAnimation() {
             Instantiate(enemyExplosionAnimation, this.transform.position, Quaternion.identity);
+     }
+
+     public void IncreaseScore(){
+         if(_uiManager == null)  return;
+            _uiManager.UpdateScore();
      }
 
 }
