@@ -1,18 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
+    public Image livesImageDisplay;
     public Sprite[] livesSprites;
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    public void UpdateLives(){
 
+    public void UpdateLives(int currentLives){
+        livesImageDisplay.sprite = livesSprites[currentLives];
     }
 
     public void UpdateScore(){
