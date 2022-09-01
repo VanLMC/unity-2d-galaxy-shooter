@@ -31,12 +31,14 @@ public class Player : MonoBehaviour
     private GameObject _shieldsGameObject;
 
     private UIManager _uiManager;
+    private GameManager _gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         if(_uiManager != null) return;
 
@@ -101,8 +103,8 @@ public class Player : MonoBehaviour
 
     public void Die(){
         Instantiate(_explosionAnimation, this.transform.position, Quaternion.identity);
+        _gameManager.EndGame();
         Destroy(this.gameObject);
-        _uiManager.EndGame();
     }
 
     public void SppedBoostPowerupOn() {
