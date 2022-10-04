@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        if(_uiManager != null) return;
+        if(_uiManager == null) return;
 
         _uiManager.UpdateLives(_lives);
     }
