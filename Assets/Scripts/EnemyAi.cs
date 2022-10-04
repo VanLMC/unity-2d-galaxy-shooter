@@ -12,6 +12,9 @@ public class EnemyAi : MonoBehaviour
 
     private UIManager _uiManager;
 
+   [SerializeField]
+    private AudioClip _audioClip;
+
     void Start(){
       _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
@@ -37,23 +40,32 @@ public class EnemyAi : MonoBehaviour
             Destroy(this.gameObject);
          }
          else if(other.tag == "Laser"){
-            Laser laser = other.GetComponent<Laser>();
-            if(laser == null) return;
-            Destroy(laser.gameObject);
+            DestroyLaser(other);
             Destroy(this.gameObject);
             IncreaseScore();
          }
         
-        PlayExplosionAnimation();
+        Explode();
      }
 
-     private void PlayExplosionAnimation() {
+     private void Explode() {
             Instantiate(enemyExplosionAnimation, this.transform.position, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(_audioClip, Camera.main.transform.position, 1f); 
+            //PlayClip at point plays a soundclip that is passed to it on the main camera position
+            //The AudioSource is not used in this cause because its parent object would soon be destroyed and the audio would not be heard
      }
 
-     public void IncreaseScore(){
+     private void DestroyLaser(Collider2D other){
+         Laser laser = other.GetComponent<Laser>();
+         if(laser == null) return;
+         Destroy(laser.gameObject);
+     }
+
+     private void IncreaseScore(){
          if(_uiManager == null)  return;
             _uiManager.UpdateScore();
      }
+
+
 
 }

@@ -126,3 +126,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 8
   enemyExplosionAnimation: {fileID: 946156473592654056, guid: ebd711e4ee5448249a369769935aa429, type: 3}
+  _audioClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}

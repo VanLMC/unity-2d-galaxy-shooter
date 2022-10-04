@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
     private UIManager _uiManager;
     private GameManager _gameManager;
 
+    private AudioSource _audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,13 +45,14 @@ public class Player : MonoBehaviour
         if(_uiManager == null) return;
 
         _uiManager.UpdateLives(_lives);
+
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update(){
         Movement();
         Shoot();
-
     }
 
     private void Shoot(){
@@ -63,6 +66,7 @@ public class Player : MonoBehaviour
                 Instantiate(_shotPrefab, transform.position + new Vector3(0, 1.32f,0), Quaternion.identity); //Quaternion is used to represent rotation
             }
             _nextFireTime = Time.time + _fireRate;
+            _audioSource.Play();
         }
     }
 
