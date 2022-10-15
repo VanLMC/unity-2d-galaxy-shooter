@@ -30,6 +30,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _shieldsGameObject;
 
+    [SerializeField]
+    private GameObject[] _engineFails;
+
     private UIManager _uiManager;
     private GameManager _gameManager;
 
@@ -99,10 +102,25 @@ public class Player : MonoBehaviour
         }
 
         _lives--;
+        ShowFailedEngine();
         if(_lives < 1){
             Die();
         }
         _uiManager.UpdateLives(_lives);
+    }
+
+    private void ShowFailedEngine(){
+        int randomNumber = Random.Range(0, 2);
+        GameObject randomEngine =_engineFails[randomNumber];
+        bool isRandomEngineActive = randomEngine.activeSelf;
+        Debug.Log(randomNumber);
+        if(isRandomEngineActive){
+            int newNumber = randomNumber == 0 ? 1 : 0;
+            Debug.Log(newNumber);
+            _engineFails[newNumber].SetActive(true);
+            return;
+        }
+        randomEngine.SetActive(true);
     }
 
     public void Die(){
